@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthappService } from 'src/services/authapp.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(public basicAuth: AuthappService) { }
+  //queste variabili non sono refreshate ma inizializzate solo una volta - per refresharle automaticamente occorre inserirle nel codice html
+  //isLog: boolean = this.basicAuth.isLogged();
+  //user = this.basicAuth.loggedUser();
+  
   ngOnInit(): void {
   }
+
+
 
 }
