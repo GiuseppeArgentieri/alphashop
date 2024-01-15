@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IArticoli } from '../../models/articoli';
-import { ArticoliService } from 'src/services/articoli.service';
+import { ArticoliService } from 'src/services/data/articoli.service';
 
 @Component({
   selector: 'app-articoli',
@@ -8,11 +8,24 @@ import { ArticoliService } from 'src/services/articoli.service';
   styleUrls: ['./articoli.component.css']
 })
 export class ArticoliComponent implements OnInit {
-articoli: IArticoli[] = []
+articoli$: IArticoli[] = [];
+errore: string = "";
   constructor(private articoliService: ArticoliService) { }
 
   ngOnInit(): void {
-    this.articoli = this.articoliService.getArticoli();
+    this.articoliService.getArticoliByDesc('Barilla').subscribe(
+      {next: this.handleResponse.bind(this),
+      error: this.handleErrore.bind(this)
+      }
+    );
+  }
+
+  handleResponse(response: IArticoli[]){
+    this.articoli$ = response;
+  }
+
+  handleErrore(error: Object){
+    this.errore = error.toString();
   }
 
 }
