@@ -13,6 +13,7 @@ import { LogoutComponent } from './pages/logout/logout.component';
 import { GridArticoliComponent } from './pages/grid-articoli/grid-articoli.component';
 import { ArticoliCardComponent } from './components/articoli-card/articoli-card.component';
 import {HttpClientModule} from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {HttpClientModule} from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     CoreModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

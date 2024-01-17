@@ -19,19 +19,20 @@ export class ArticoliService {
 
   ]
   */
+ server : string = "localhost";
+ port : string = "5051";
   constructor(private httpClient: HttpClient) { }
 
   //getArticoli = () : IArticoli[] => this.articoli
 
   getArticoliByDesc = (descrizione: string) => {
-    return this.httpClient.get<IArticoli[]>(`http://localhost:5051/api/articoli/cerca/descrizione/${descrizione}`)
+    return this.httpClient.get<IArticoli[]>(`http://${this.server}:${this.port}/api/articoli/cerca/descrizione/${descrizione}`)
     .pipe(
       map(response => {response.forEach(item => item.idStatoArt = this.getDesStatoArt(item.idStatoArt));
                       return response;
       })
       
-    )
-    ;
+    );
   }
 
   getDesStatoArt = (idStato: string): string => {
@@ -41,6 +42,24 @@ export class ArticoliService {
       return 'Sospeso';
     else
       return 'Eliminato';
+  }
+
+  getArticoliByCode = (codArt: string) =>{
+    return this.httpClient.get<IArticoli>(`http://${this.server}:${this.port}/api/articoli/cerca/codice/${codArt}`)
+    .pipe(
+      map(response => {response.idStatoArt = this.getDesStatoArt(response.idStatoArt);
+                      return response;
+      })
+    );
+  }
+
+  getArticoliByEan = (barcode: string) =>{
+    return this.httpClient.get<IArticoli>(`http://${this.server}:${this.port}/api/articoli/cerca/ean/${barcode}`)
+    .pipe(
+      map(response => {response.idStatoArt = this.getDesStatoArt(response.idStatoArt);
+                      return response;
+      })
+    );
   }
   /*
   getArticoliByCode = (codArt: string): IArticoli =>{
