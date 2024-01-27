@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IArticoli } from '../../models/articoli';
 import { ArticoliService } from 'src/services/data/articoli.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable, map, of } from 'rxjs';
 
 @Component({
@@ -15,10 +15,10 @@ errore: string = "";
 filter$: Observable<string | null> = of("");
 filter: string | null = "";
 filterType: number = 0;
-
+codart : string = "";
 pagina: number = 1;
 righe: number = 10;
-  constructor(private articoliService: ArticoliService, private route: ActivatedRoute) { }
+  constructor(private articoliService: ArticoliService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.filter$ = this.route.queryParamMap.pipe(
@@ -106,6 +106,31 @@ righe: number = 10;
       this.filterType = 0;
     }
 
+  }
+
+  Modifica = (codArt: string) => {
+    console.log(`Modifica articolo ${codArt}`);
+    this.router.navigate(['gestart', codArt])
+  }
+
+  Elimina = (CodArt: string) => {
+    this.codart = CodArt;
+    console.log(`Eliminazione articolo ${CodArt}`);
+    this.articoliService.delArticoloByCodArt(CodArt).subscribe(
+      {next: this.HandleOkDelete.bind(this),
+      error: this.HandleErrDelete.bind(this)
+      }
+    );
+  }
+
+  HandleErrDelete(error: any){
+    console.log(error);
+    this.errore = error.error.message;
+  }
+  HandleOkDelete(response: any){
+    console.log(response);
+    this.articoli$ = this.articoli$.filter(item => item.codArt!==this.codart)
+    this.codart = "";
   }
 
 }

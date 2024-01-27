@@ -1,3 +1,12 @@
+<div class="content-header">
+<div>
+  <button class="btn btn-primary" (click)="Modifica('')">
+  <i class="material-icons md-plus"></i>
+    Nuovo
+  </button>
+</div>
+</div>
+<br>
 <div class="col-lg-4 col-md-6 me-auto">
   <input type="text" placeholder="Cerca.." class="form-control" [(ngModel)]="filter" (keyup.enter)="refresh()">
 </div>
@@ -27,14 +36,14 @@
             <td class="tbl-string">{{articolo.prezzo | currency : 'EUR'}}</td>
             <td class="tbl-string infoBadge">
               <span
-                [ngClass]="articolo.idStatoArt === 'Attivo' ? 'text-success badge rounded-pill alert-success' :
-                  'text-danger badge rounded-pill alert-danger'">{{articolo.idStatoArt}}
+                [ngClass]="articolo.idStatoArt === '1' ? 'text-success badge rounded-pill alert-success' :
+                  'text-danger badge rounded-pill alert-danger'">{{articolo.desStatoArt}}
               </span>
             </td>
             <td class="tbl-string">{{articolo.dataCreazione | date : 'dd-MM-YYYY'}}</td>
 
             <td class="text-end">
-              <button href="#" class="btn btn-light text-danger">Elimina</button>
+              <button (click)="Elimina(articolo.codArt)" class="btn btn-light text-danger">Elimina</button>
                               <div class="dropdown">
                                   <button href="#" data-bs-toggle="dropdown" class="btn btn-light">
                   <i class="material-icons md-more_horiz"></i>
@@ -42,7 +51,7 @@
                                   <ul class="dropdown-menu">
                                       <li><a class="dropdown-item" href="#">Dettaglio</a></li>
                                       <li><a class="dropdown-item" href="#">Info</a></li>
-                                      <li><a class="dropdown-item" href="#">Modifica</a></li>
+                                      <li><a class="dropdown-item" (click)="Modifica(articolo.codArt)">Modifica</a></li>
                                   </ul>
                               </div> <!-- dropdown //end -->
                           </td>

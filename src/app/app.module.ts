@@ -14,6 +14,7 @@ import { GridArticoliComponent } from './pages/grid-articoli/grid-articoli.compo
 import { ArticoliCardComponent } from './components/articoli-card/articoli-card.component';
 import {HttpClientModule} from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { GestartComponent } from './pages/gestart/gestart.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ArticoliComponent,
     LogoutComponent,
     GridArticoliComponent,
-    ArticoliCardComponent
+    ArticoliCardComponent,
+    GestartComponent
   ],
   imports: [
     BrowserModule,
